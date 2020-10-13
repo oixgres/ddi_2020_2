@@ -6,15 +6,9 @@ public class Interactable : MonoBehaviour
 {
     bool inArea = false;
 
-    // Start is called before the first frame update
-    void Start()
+    public virtual void interact()
     {
-        
-    }
-
-    public void interact()
-    { 
-    
+        Debug.Log("Interactuando...");
     }
 
     // Update is called once per frame

@@ -8,15 +8,20 @@ public class CoinInteractable : Interactable
     public float torque;
     bool interactionSet;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
+    {
+        if(interactionSet)
+            rb.AddTorque(transform.up * torque * -1f);
+    }
+
+    public override void interact()
     {
         base.interact();
+        interactionSet = true;
     }
 }
