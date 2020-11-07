@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e2ecb93d5a20e14996aee9428c6e950, type: 3}
   m_Name: Beer
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 5c699a93352723342b1ed859bd1a9d9e, type: 3}
   itemType: 3
   restoreHP: 50
   weight: 2

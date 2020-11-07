@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d13be24f7da6a84ebf6d6e1243e870f, type: 3}
   m_Name: Meat
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: eb5f6e2757c821940b69cf1456f7865a, type: 3}
+  sprite: {fileID: 21300000, guid: d3b76fd152ecb9c40b92c714573f84e4, type: 3}
   itemType: 3
   restoreHP: 50
   weight: 1
