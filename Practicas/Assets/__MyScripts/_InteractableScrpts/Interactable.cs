@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class Interactable : MonoBehaviour
 {
@@ -14,9 +13,9 @@ public class Interactable : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inArea && Input.GetKeyDown(KeyCode.G))
+     //   if (inArea && Input.GetKeyDown(KeyCode.G))
+        if(inArea && CrossPlatformInputManager.GetButtonDown("Fire1"))
             interact();
-
     }
 
     private void OnTriggerEnter(Collider other)

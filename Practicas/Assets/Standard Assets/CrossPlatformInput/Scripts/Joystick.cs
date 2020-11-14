@@ -14,6 +14,8 @@ namespace UnityStandardAssets.CrossPlatformInput
 			OnlyVertical // Only vertical
 		}
 
+		public bool usingCamera = false;
+		public Camera cam; 
 		public int MovementRange = 100;
 		public AxisOption axesToUse = AxisOption.Both; // The options for the axes that the still will use
 		public string horizontalAxisName = "Horizontal"; // The name given to the horizontal axis for the cross platform input

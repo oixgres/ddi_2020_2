@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -16,6 +17,10 @@ public class InventoryUI : MonoBehaviour
     public GameObject normalLight;
     public GameObject menuLight;
 
+    /*Button*/
+    public GameObject gameButtons;
+    public GameObject menuButtons;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +28,7 @@ public class InventoryUI : MonoBehaviour
         /*Mio*/
         menuCamera.SetActive(false);
         menuLight.SetActive(false);
+        menuButtons.SetActive(false);
 
         /*Nuevo*/
         // inventory = FindObjectOfType<Inventory>();
@@ -43,7 +49,8 @@ public class InventoryUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+      //  if (Input.GetKeyDown(KeyCode.M))
+      if(CrossPlatformInputManager.GetButtonDown("Fire2") || CrossPlatformInputManager.GetButtonDown("Fire4"))
         {
             //cambio de camara
             gameCamera.SetActive(!gameCamera.activeSelf);
@@ -52,6 +59,10 @@ public class InventoryUI : MonoBehaviour
             //Activamos/desactivamos
             normalLight.SetActive(!normalLight.activeSelf);
             menuLight.SetActive(!menuLight.activeSelf);
+
+            //Cambio de botones
+            gameButtons.SetActive(!gameButtons.activeSelf);
+            menuButtons.SetActive(!gameButtons.activeSelf);
 
             //Activamos/desactivamos inventario
             inventoryMenu.SetActive(!inventoryMenu.activeSelf);

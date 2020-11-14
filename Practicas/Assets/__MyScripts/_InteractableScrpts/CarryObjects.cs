@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class CarryObjects :MonoBehaviour
 {
@@ -19,7 +20,8 @@ public class CarryObjects :MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L) && inArea)
+        //if (Input.GetKeyDown(KeyCode.L) && inArea)
+        if(CrossPlatformInputManager.GetButtonDown("Fire3") && inArea)
         {
             Debug.Log("Levantando");
             
