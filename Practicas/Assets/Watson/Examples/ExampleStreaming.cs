@@ -62,11 +62,6 @@ namespace IBM.Watsson.Examples
         /*Mio de mi*/
         private VoiceCommandProcessor commandProcessor;
 
-        private void Awake()
-        {
-            
-        }
-
         void Start()
         {
             commandProcessor = VoiceCommandProcessor.VoiceCommandProcessorInstance;
