@@ -47,6 +47,7 @@ namespace GoogleVR.HelloVR
         private bool isGazed = false;
         private bool timeStartFlag = false;
         private bool numbersGame = false;
+        private bool scannerGame = false;
 
         /*timers*/
         private float offsetTime = 2f;
@@ -156,36 +157,13 @@ namespace GoogleVR.HelloVR
 
         private void Update()
         {
-            emergencyChecker();
+            timeChecker();//espero para la emergencia
 
             foreach (var word in voiceCommandProcessor.words)
             {
                 if (numbersGame)
                 {
-                    if (numbers.Count == 0)
-                    {
-                        /*
-                        foreach (var p in voiceCommandProcessor.panels)
-                        {
-                            if (p.name == "TasksPanel")
-                                p.SetActive(true);
-                            else
-                                p.SetActive(false);
-                        }*/
-                        voiceCommandProcessor.numberTasksCompleted++;
-                        voiceCommandProcessor.activatePanel("TasksPanel");
-
-                        numbersGame = false;
-                        Destroy(this.GetComponent<EventTrigger>());
-                        Destroy(this.GetComponent<EventTrigger>());
-                    }
-                    else
-                    {
-                        if (numbers.Contains(word))
-                            numbers.Remove(word);
-                        
-                        Debug.Log(numbers.Count);
-                    }
+                    playNumbersGame(word);
 
                     return;
                 }
@@ -198,33 +176,22 @@ namespace GoogleVR.HelloVR
                         if (action == "camina")
                             voiceWalk();
                         else if (action == "emergencia")
-                            emergencyStart();
+                        {
+                            timeStart(panelName, 1f);
+                        }
                         else if (action == "repara")
                         {
-                            //Debug.LogWarning("Comenzando");
-                            
                             numbersGame = true;
-
                             voiceCommandProcessor.activatePanel(panelName);
-                            /*
-                            foreach (var p in voiceCommandProcessor.panels)
-                            {
-                                if (p.name == "NumbersPanel")
-                                    p.SetActive(true);
-                                else
-                                    p.SetActive(false);
-                            }
-                            */
-
-
                         }
-
+                        else if (action == "escanea")
+                        {
+                            scannerGame = true;
+                            timeStart(panelName, 10f);
+                            voiceCommandProcessor.waitingPoints = 1;
+                        }
                     }
                     return;
-                    /*
-                    if (voiceCommandProcessor.onVoiceCommand != null)
-                        voiceCommandProcessor.onVoiceCommand.Invoke(word.ToLower());
-                    */
                 }
             }
             
@@ -240,40 +207,36 @@ namespace GoogleVR.HelloVR
             posZ = this.transform.position.z;
 
             if (playerX > posX)
-                flagX = -5;
+                flagX = -10;
             else
-                flagX = 5;
+                if (playerX < posX)
+                    flagX = 10;
+                else
+                    flagX = 0;
 
             if (playerZ > posZ)
-                flagZ = -5;
+                flagZ = -10;
             else
-                flagZ = 5;
+                if (playerZ > posZ)
+                flagZ = 10;
+            else
+                flagZ = 0;
 
             player.GetComponent<CharacterController>().Move(new Vector3(flagX, 0, flagZ) * 0.5f * Time.deltaTime);
         }
 
-        private void emergencyStart()
+        private void timeStart(string panel, float finishTime)
         {
-            Debug.LogWarning("Emergencia");
-
             /*apagamos panel de tareas y prendemos el de emergencia*/
             timeStartFlag = true;
 
-            voiceCommandProcessor.activatePanel("EmergencyPanel");
-            /*
-            foreach (var p in voiceCommandProcessor.panels)
-            {
-                if (p.name == "EmergencyPanel")
-                    p.SetActive(true);
-                else
-                    p.SetActive(false);
-            }
-            */
+            voiceCommandProcessor.activatePanel(panel);
 
+            offsetTime = finishTime;
             time += Time.deltaTime;
         }
 
-        private void emergencyChecker()
+        private void timeChecker()
         {
             if (timeStartFlag)
                 time += Time.deltaTime;
@@ -281,34 +244,33 @@ namespace GoogleVR.HelloVR
             if (time > offsetTime)
             {
                 voiceCommandProcessor.activatePanel("TasksPanel");
-                /*
-                foreach (var p in voiceCommandProcessor.panels)
-                {
-                    if (p.name == "TasksPanel")
-                        p.SetActive(true);
-                    else
-                        p.SetActive(false);
-                }
-                */
                 time = 0f;
                 timeStartFlag = false;
                 voiceCommandProcessor.transcript = "";
+
+                if (offsetTime == 10f)
+                    voiceCommandProcessor.scannerCompleted = true;
             }
         }
-        /*
-        private bool voiceNumbers(List<string> numbers)
-        {
-            if (numbers == null)
-                return true;
-            else
-                foreach (var number in numbers)
-                { 
-                    if(voiceCommandProcessor.words)
-            
-                }
 
-            return false;        
+        private void playNumbersGame(string word)
+        {
+            if (numbers.Count == 0)
+            {
+                voiceCommandProcessor.numberTasksCompleted++;
+                voiceCommandProcessor.activatePanel("TasksPanel");
+
+                numbersGame = false;
+                Destroy(this.GetComponent<EventTrigger>());
+                Destroy(this.GetComponent<EventTrigger>());
+            }
+            else
+            {
+                if (numbers.Contains(word))
+                    numbers.Remove(word);
+
+                Debug.Log(numbers.Count);
+            }
         }
-        */
     }
 }

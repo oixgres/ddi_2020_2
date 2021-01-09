@@ -27,7 +27,6 @@ public class tasksController : MonoBehaviour
 
             if (tasksCompleted == 3)
                 task.color = Color.green;
-               
         }
     }
 }

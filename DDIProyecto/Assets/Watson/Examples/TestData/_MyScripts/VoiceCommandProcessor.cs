@@ -19,6 +19,8 @@ namespace IBM.Watsson.Examples
         public string[] words;
 
         public int numberTasksCompleted = 0;
+        public int waitingPoints = 0;
+        public bool scannerCompleted = false;
      //   public GameObject player;
     //    public GameObject destiny;
 

@@ -16,5 +16,9 @@ public class showCommands : MonoBehaviour
     void Update()
     {
         this.GetComponent<Text>().text = voiceCommandProcessor.transcript;
-    }
+
+
+
+
+   }
 }
